@@ -1,0 +1,48 @@
+--- t/sagan-1.0.0/src/sagan.c	2015-10-22 15:10:21.000000000 +0000
++++ sagan/src/sagan.c	2015-11-01 23:54:59.922940164 +0000
+@@ -719,13 +719,13 @@
+     /* Create the signal handlers thread _after_ the fork() so it can properly
+      * handly signals - Champ Clark III - 06/13/2011 */
+
+-    rc = pthread_create( &sig_thread, NULL, (void *)Sig_Handler, sigargs );
++    //rc = pthread_create( &sig_thread, NULL, (void *)Sig_Handler, sigargs );
+
+-    if ( rc != 0  )
+-        {
+-            Remove_Lock_File();
+-            Sagan_Log(S_ERROR, "[%s, line %d] Error creating signal handler thread. [error: %d]", __FILE__, __LINE__, rc);
+-        }
++    //if ( rc != 0  )
++    //    {
++    //        Remove_Lock_File();
++    //        Sagan_Log(S_ERROR, "[%s, line %d] Error creating signal handler thread. [error: %d]", __FILE__, __LINE__, rc);
++    //    }
+
+
+     /* We don't want the key_handler() if we're in daemon mode! */
+@@ -778,7 +778,8 @@
+             Sagan_Log(S_NORMAL, "Attempting to open syslog FILE (%s).", config->sagan_fifo);
+         }
+
+-
++    char buf[MAX_SYSLOGMSG+10];
++    size_t len;
+
+     while(1)
+         {
+@@ -809,9 +810,13 @@
+             while(fd != NULL)
+                 {
+
++
+
+-                    while(fgets(syslogstring, sizeof(syslogstring), fd) != NULL)
+-                        {
++                  //  while(fgets(syslogstring, sizeof(syslogstring), fd) != NULL)
++		  while (__AFL_LOOP(10000)) {
++			memset(buf, 0, MAX_SYSLOGMSG);
++		        len = read(0, buf, MAX_SYSLOGMSG);
++			strlcpy(syslogstring, buf, len);
+
+                             /* If the FIFO was in a error state,  let user know the FIFO writer has resumed */
+

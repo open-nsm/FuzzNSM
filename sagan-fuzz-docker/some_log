@@ -1,0 +1,1 @@
+72.36.88.11|daemon|err|err|pbs_server:|2015-10-22|15:13:05|pbs_server| LOG_ERROR::tcp_connect_sockaddr, Failed when trying to open tcp connection - connect() failed [rc = -2] [addr = 72.36.102.28:15003]
