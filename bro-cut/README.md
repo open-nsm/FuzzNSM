@@ -6,6 +6,6 @@ Usage
 
     host$ docker build -t bro-cut-fuzz .
     host$ docker run -ti --rm bro-cut-fuzz
-    container# afl-fuzz  -i input/ -o output/ -t 200 -- ./bro-cut-2.4.0
+    container# afl-fuzz  -i input/ -o output/ -t 200 -- ./bro-cut-2.4.0 -d
 
 One should see crashes almost immediately
