@@ -1,0 +1,9 @@
+#separator \x09
+#set_separator	,
+#empty_field	(empty)
+#unset_field	-
+#path	ssh
+#open	2016-03-04-22-10-36
+#fields	ts	uid	id.orig_p
+#types	time	string	port
+1055289978.855137	CC2Dfh1WPERo6feUT6	40264
